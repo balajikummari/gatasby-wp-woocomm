@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { useEffect, useState } from 'react';
-import  Link from 'gatsby-link';
+import Link from 'gatsby-link';
 import { each, isEmpty } from 'lodash';
 import classnames from 'classnames';
 
@@ -12,37 +12,37 @@ import { normalizePath } from "../../utils/functions";
 import CartIcon from "../cart/cart-icon";
 import WishListIcon from "../wishlist/wishlist-icon";
 
-const Nav = ( props ) => {
+const Nav = (props) => {
 
 	const { headerMenuItems } = props;
 
-	const [ menuVisible, setMenuVisibility ] = useState( false );
-	const [ menuState, setMenuState ] = useState( {} );
+	const [menuVisible, setMenuVisibility] = useState(false);
+	const [menuState, setMenuState] = useState({});
 
 	// Eslint disable as headerMenuItems is available from the props so does not have a missing dependency.
 	/* eslint-disable */
-	useEffect( () => {
+	useEffect(() => {
 
-		if ( Object.keys( headerMenuItems.edges ).length ) {
+		if (Object.keys(headerMenuItems.edges).length) {
 			const newMenuState = {};
 
-			each( headerMenuItems.edges, ( item ) => {
-				newMenuState[ item.node.databaseId ] = { isOpen: false };
-			} );
+			each(headerMenuItems.edges, (item) => {
+				newMenuState[item.node.databaseId] = { isOpen: false };
+			});
 
-			setMenuState( newMenuState );
+			setMenuState(newMenuState);
 		}
 
-	}, [] );
+	}, []);
 	/* eslint-enable */
 
-	const handleSubMenuOpen = ( event, databaseId ) => {
+	const handleSubMenuOpen = (event, databaseId) => {
 		event.stopPropagation();
 
-		setMenuState( {
+		setMenuState({
 			...menuState,
-			[ databaseId ]: { isOpen: ! menuState[ databaseId ].isOpen },
-		} );
+			[databaseId]: { isOpen: !menuState[databaseId].isOpen },
+		});
 	};
 
 	const menuButtonClasses = classnames(
@@ -53,109 +53,109 @@ const Nav = ( props ) => {
 	);
 
 	const toggleMenu = () => {
-		setMenuVisibility( ! menuVisible );
-		document.body.classList.toggle( 'mobile-menu-open' );
+		setMenuVisibility(!menuVisible);
+		document.body.classList.toggle('mobile-menu-open');
 	};
 
 	return (
 		<>
 			<nav
-				className={ `header-nav ${
+				className={`header-nav ${
 					menuVisible ? 'menu-visible' : ''
-				}` }
+					}`}
 			>
 				<div className="header-nav__wrap">
-					{ ! isEmpty( headerMenuItems.edges ) && ! isEmpty( menuState ) ? (
+					{!isEmpty(headerMenuItems.edges) && !isEmpty(menuState) ? (
 						<ul className="header-nav__wrap">
-							{ headerMenuItems.edges.map( ( menu ) => {
-								const hasChildren = null !== menu.node.childItems.nodes ? menu.node.childItems.nodes.length: false;
+							{headerMenuItems.edges.map((menu) => {
+								const hasChildren = null !== menu.node.childItems.nodes ? menu.node.childItems.nodes.length : false;
 								const parentMenuLink = (
 									<Link
 										className="header-nav__menu-link"
-										to={ normalizePath( menu.node.url ) }
+										to={normalizePath(menu.node.url)}
 									>
-										{ menu.node.label }
+										{menu.node.label}
 									</Link>
 								);
 
 								return (
 									<li
-										key={ menu.node.databaseId }
-										className={ `header-nav__menu-item ${
+										key={menu.node.databaseId}
+										className={`header-nav__menu-item ${
 											hasChildren
 												? 'menu-has-children'
 												: ''
-										} ${
-											menuState[ menu.node.databaseId ].isOpen
+											} ${
+											menuState[menu.node.databaseId].isOpen
 												? 'child-menu-open'
 												: ''
-										}` }
+											}`}
 									>
-										{ hasChildren ? (
+										{hasChildren ? (
 											<span className="header-nav__menu-link-container-with-arrow">
-												{ parentMenuLink }
+												{parentMenuLink}
 												<button
 													className="header-nav__toggle-menu-btn icon-button"
-													onClick={ ( event ) => handleSubMenuOpen( event, menu.node.databaseId ) }
-													onKeyDown={ ( event ) => handleSubMenuOpen( event, menu.node.databaseId ) }
+													onClick={(event) => handleSubMenuOpen(event, menu.node.databaseId)}
+													onKeyDown={(event) => handleSubMenuOpen(event, menu.node.databaseId)}
 												>
-												<DropdownIcon />
+													<DropdownIcon />
 												</button>
 											</span>
-										) : parentMenuLink }
+										) : parentMenuLink}
 
-										{ /* Child Menu */ }
-										{ hasChildren ? (
+										{ /* Child Menu */}
+										{hasChildren ? (
 											<ul
-												className={ `header-nav__submenu ${
-													menuState[ menu.node.databaseId ].isOpen
+												className={`header-nav__submenu ${
+													menuState[menu.node.databaseId].isOpen
 														? 'child-menu-open'
 														: ''
-												}` }
+													}`}
 											>
-												{ menu.node.childItems.nodes.map(
-													( subMenu ) => (
+												{menu.node.childItems.nodes.map(
+													(subMenu) => (
 														<li
 															className="header-nav__submenu-item"
-															key={ subMenu.databaseId }
+															key={subMenu.databaseId}
 														>
 															<Link
 																className="header-nav__submenu-link"
-																to={ normalizePath( subMenu.url ) }
+																to={normalizePath(subMenu.url)}
 															>
-																{ subMenu.label }
+																{subMenu.label}
 															</Link>
 														</li>
 													)
-												) }
+												)}
 											</ul>
-										) : null }
+										) : null}
 									</li>
 								);
-							} ) }
-							<li className="header-nav__menu-item">
+							})}
+							{/* <li className="header-nav__menu-item">
 								<Link className="header-nav__menu-link" to="/checkout">Checkout</Link>
-							</li>
+							</li> */}
 						</ul>
-					) : null }
+					) : null}
 
 				</div>
 			</nav>
 			<div className="cart-icon-wrap">
-				<WishListIcon/>
-				<CartIcon/>
+				<WishListIcon />
+				<CartIcon />
 				{/*Burger menu*/}
 				<button
-					className={ menuButtonClasses }
+					className={menuButtonClasses}
 					type="button"
-					onClick={ toggleMenu }
-					onKeyDown={ toggleMenu }
+					onClick={toggleMenu}
+					onKeyDown={toggleMenu}
 				>
-				<span className="hamburger-box">
-					<span className="hamburger-inner">
-						<span className="screen-reader-text">Toogle Menu</span>
+					<span className="hamburger-box">
+						<span className="hamburger-inner">
+							<span className="screen-reader-text">Toogle Menu</span>
+						</span>
 					</span>
-				</span>
 				</button>
 			</div>
 		</>

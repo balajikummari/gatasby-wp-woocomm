@@ -7,9 +7,9 @@ import Link from "gatsby-link";
 
 const CartDropDown = ({ isDropdownOpen }) => {
 
-	const [ cart ] = useContext( AppContext );
+	const [cart] = useContext(AppContext);
 
-	if ( null === cart || ! Object.keys( cart ).length ) {
+	if (null === cart || !Object.keys(cart).length) {
 		return null;
 	}
 
@@ -19,11 +19,11 @@ const CartDropDown = ({ isDropdownOpen }) => {
 	const productImagePlaceholder = "https://via.placeholder.com/70";
 
 	return (
-		<div className={ `shopping-cart ${ isDropdownOpen ? 'is-open' : '' }` }>
-			<div className="shopping-cart-header">
+		<div className={`shopping-cart ${isDropdownOpen ? 'is-open' : ''}`}>
+			{/* <div className="shopping-cart-header">
 				<div className="cart-icon-wrp">
 					<Link to="/cart">
-						{/* eslint-disable */}
+						
 						<span className="cart-icon" role="img">🛒</span>
 						<span className="badge">{ productsCount }</span>
 					</Link>
@@ -63,7 +63,7 @@ const CartDropDown = ({ isDropdownOpen }) => {
 					</li>
 				) ) }
 			</ul>
-			<Link to="/checkout" className="button">Checkout</Link>
+			<Link to="/checkout" className="button">Checkout</Link> */}
 		</div>
 	)
 }
