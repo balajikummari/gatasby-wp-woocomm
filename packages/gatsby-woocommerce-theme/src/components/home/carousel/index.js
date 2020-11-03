@@ -21,7 +21,7 @@ const Carousel = ({ categories }) => {
 
   return (
     <div>
-      <Slider {...settings}>
+      {/* <Slider {...settings}>
         {!isEmpty(categories.nodes)
           ? categories.nodes.map((category) => {
               return (
@@ -56,7 +56,7 @@ const Carousel = ({ categories }) => {
               );
             })
           : null}
-      </Slider>
+      </Slider> */}
     </div>
   );
 };

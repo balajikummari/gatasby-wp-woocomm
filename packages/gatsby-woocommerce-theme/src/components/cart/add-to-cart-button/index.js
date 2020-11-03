@@ -77,10 +77,10 @@ const AddToCart = (props) => {
           <button className="btn btn-outline-dark">Buy Now</button>
         </a>
       ) : (
-        <button onClick={handleAddToCartClick} className="btn btn-outline-dark">
-          Add to cart
-        </button>
-      )}
+          <button onClick={handleAddToCartClick} className="btn btn-outline-dark">
+            Buy Now
+          </button>
+        )}
       {showViewCart ? (
         <Link to="/cart">
           <button className="woo-next-view-cart-btn btn btn-outline-dark">
@@ -88,16 +88,16 @@ const AddToCart = (props) => {
           </button>
         </Link>
       ) : (
-        ""
-      )}
+          ""
+        )}
       {/* Add To Cart Loading*/}
       {addToCartLoading ? (
         <p className="mt-2">Adding to Cart...</p>
       ) : (
-        <p className="mt-2" style={{ color: "transparent" }}>
-          Adding to Cart...
-        </p>
-      )}
+          <p className="mt-2" style={{ color: "transparent" }}>
+            Adding to Cart...
+          </p>
+        )}
     </div>
   );
 };
